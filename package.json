@@ -7,7 +7,13 @@
     "test": "./node_modules/.bin/mocha --require coffee-script/register --compilers coffee:coffee-script/register tests/*.coffee --bail --timeout 30000",
     "gulp": "./node_modules/.bin/gulp"
   },
-  "author": "",
+  "author": "David Higgins <thehig@gmail.com>",
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thehig/gulp-practise.git"
+  },
+
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",

@@ -1,10 +1,10 @@
 var gulp = require('gulp');
-var mocha = require('gulp-mocha');
-var gutil = require('gulp-util');
-var jshint = require('gulp-jshint');
-var sourcemaps = require('gulp-sourcemaps');
-var coffee = require('gulp-coffee');
-var del = require('del');
+var gutil = require('gulp-util'); 				// Logging
+var mocha = require('gulp-mocha');				// Testing framework
+var jshint = require('gulp-jshint'); 			// Syntax hilighting
+var sourcemaps = require('gulp-sourcemaps'); 	// Source map generation (coffee)
+var coffee = require('gulp-coffee'); 			// Coffee compiler
+var del = require('del'); 						// File deleter
 
 // Delete the public folder before we start
 gulp.task('clean', function() {
