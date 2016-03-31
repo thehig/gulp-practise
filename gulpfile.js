@@ -48,14 +48,23 @@ gulp.task('mocha', ['copy-scripts', 'coffee'], function() {
 
 
 
-
+var server = undefined;
 gulp.task('webserver', ['copy-scripts'], function() {
-	return gulp.src('./public/app/')
+	server = gulp.src('./public/app/')
 		.pipe(webserver({
 			// livereload: true,
 			// directoryListing: true,
-			open: true
+			// open: true
 		}));
+	return server;
+});
+
+gulp.task('something', ['webserver'], function(done){
+	setTimeout(function(){
+		server.emit('kill');
+		done();
+	}, 2000);
+	
 });
 
 
