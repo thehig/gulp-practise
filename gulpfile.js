@@ -23,7 +23,7 @@ gulp.task('jshint', function() {
 });
 
 // Convert all coffee files in the tests folder
-gulp.task('coffee', ['clean'], function() {
+gulp.task('coffee', function() {
 	gutil.log("\tTranspiling tests/*.coffee to public/tests/*.js");
 	return gulp.src('tests/**/*.coffee')
 		.pipe(sourcemaps.init())
@@ -46,6 +46,9 @@ gulp.task('mocha', ['copy-scripts', 'coffee'], function() {
 		.pipe(mocha());
 });
 
+
+
+
 gulp.task('webserver', ['copy-scripts'], function() {
 	return gulp.src('./public/app/')
 		.pipe(webserver({
@@ -57,5 +60,5 @@ gulp.task('webserver', ['copy-scripts'], function() {
 
 
 gulp.task('default', ['clean'], function() {
-	return gulp.start('jshint', 'mocha', 'webserver');
+	return gulp.start('jshint', 'mocha');
 });

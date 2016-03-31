@@ -7,10 +7,21 @@
 		}
 	};
 
-	if(global && global.module && global.module.exports)
-		global.module.exports = app;
-	else
-		global.app = app;
-})(this);
+	// Expose to Node
+	try{
+		module.exports = app;
+	} 
+	catch(er){
+		// no-op
+	}
 
+
+	// Expose to browser
+	try{
+		global.app = app;
+	} 
+	catch(er){
+		// no-op
+	}
+})(this);
 	

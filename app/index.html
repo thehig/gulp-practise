@@ -3,7 +3,15 @@
 	CasperJS Test
 </title>
 <body>
+	<div class="target"></div>
 	
 	<script src="app.js"></script>
+	<script type="text/javascript">
+		console.log("Loaded");
+		var target = document.querySelector('.target');
+
+		target.innerText = app.foo('Ben');
+	</script>
+
 </body>
 </html>
