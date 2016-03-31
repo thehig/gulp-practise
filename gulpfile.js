@@ -1,10 +1,12 @@
 var gulp = require('gulp');
-var gutil = require('gulp-util'); 				// Logging
-var mocha = require('gulp-mocha');				// Testing framework
-var jshint = require('gulp-jshint'); 			// Syntax hilighting
-var sourcemaps = require('gulp-sourcemaps'); 	// Source map generation (coffee)
-var coffee = require('gulp-coffee'); 			// Coffee compiler
-var del = require('del'); 						// File deleter
+var gutil = require('gulp-util'); // Logging
+var mocha = require('gulp-mocha'); // Testing framework
+var jshint = require('gulp-jshint'); // Syntax hilighting
+var sourcemaps = require('gulp-sourcemaps'); // Source map generation (coffee)
+var coffee = require('gulp-coffee'); // Coffee compiler
+var del = require('del'); // File deleter
+var webserver = require('gulp-webserver');
+
 
 // Delete the public folder before we start
 gulp.task('clean', function() {
@@ -21,7 +23,7 @@ gulp.task('jshint', function() {
 });
 
 // Convert all coffee files in the tests folder
-gulp.task('coffee', function() {
+gulp.task('coffee', ['clean'], function() {
 	gutil.log("\tTranspiling tests/*.coffee to public/tests/*.js");
 	return gulp.src('tests/**/*.coffee')
 		.pipe(sourcemaps.init())
@@ -32,20 +34,28 @@ gulp.task('coffee', function() {
 
 // Copy app scripts into public folder
 gulp.task('copy-scripts', function() {
-	gutil.log("\tCopying app/*.js to public/app/*.js");
-	return gulp.src('app/**/*.js')
+	gutil.log("\tCopying app/*.js|html to public/app/*.js");
+	return gulp.src(['app/**/*.js', 'app/**/*.html'])
 		.pipe(gulp.dest('public/app'));
-
 });
 
 // Run all tests through mocha
 gulp.task('mocha', ['copy-scripts', 'coffee'], function() {
-
 	gutil.log("\tRunning tests in public/tests/*.js");
 	return gulp.src('./public/tests/**/*.js')
 		.pipe(mocha());
-})
+});
+
+gulp.task('webserver', ['copy-scripts'], function() {
+	return gulp.src('./public/app/')
+		.pipe(webserver({
+			// livereload: true,
+			// directoryListing: true,
+			open: true
+		}));
+});
+
 
 gulp.task('default', ['clean'], function() {
-	return gulp.start('jshint', 'mocha');
+	return gulp.start('jshint', 'mocha', 'webserver');
 });

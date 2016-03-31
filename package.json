@@ -8,12 +8,10 @@
     "gulp": "./node_modules/.bin/gulp"
   },
   "author": "David Higgins <thehig@gmail.com>",
-  
   "repository": {
     "type": "git",
     "url": "https://github.com/thehig/gulp-practise.git"
   },
-
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
@@ -25,6 +23,7 @@
     "gulp-mocha": "^2.2.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
+    "gulp-webserver": "^0.9.1",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0",
     "mocha": "^2.4.5"
