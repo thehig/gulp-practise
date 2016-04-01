@@ -6,6 +6,7 @@ var sourcemaps = require('gulp-sourcemaps'); // Source map generation (coffee)
 var coffee = require('gulp-coffee'); // Coffee compiler
 var del = require('del'); // File deleter
 var webserver = require('gulp-webserver');
+var casperjs = require('gulp-casperjs');
 
 
 // Delete the public folder before we start
@@ -57,6 +58,11 @@ gulp.task('webserver', ['copy-scripts'], function() {
 			// open: true
 		}));
 	return server;
+});
+
+gulp.task('casper', function(){
+	gulp.src('tests/casper*.js')
+		.pipe(casperjs({command:''}));
 });
 
 gulp.task('something', ['webserver'], function(done){

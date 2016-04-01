@@ -22,7 +22,7 @@
 			"name": "tests",
 			"file_include_patterns": [
 				"*.coffee",
-				// "*.js",
+				"*.js",
 				// "*fixture*",
 				// "*.disabled"
 			]
