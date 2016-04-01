@@ -53,6 +53,7 @@ var server = undefined;
 gulp.task('webserver', ['copy-scripts'], function() {
 	server = gulp.src('./public/app/')
 		.pipe(webserver({
+			port: 3000
 			// livereload: true,
 			// directoryListing: true,
 			// open: true
@@ -60,17 +61,13 @@ gulp.task('webserver', ['copy-scripts'], function() {
 	return server;
 });
 
-gulp.task('casper', function(){
-	gulp.src('tests/casper*.js')
+gulp.task('casper-test', ['webserver'], function(){
+	return gulp.src('tests/casper*.js')
 		.pipe(casperjs({command:''}));
 });
 
-gulp.task('something', ['webserver'], function(done){
-	setTimeout(function(){
-		server.emit('kill');
-		done();
-	}, 2000);
-	
+gulp.task('casper', ['casper-test'], function(){
+	server.emit('kill');
 });
 
 
