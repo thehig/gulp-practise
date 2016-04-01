@@ -63,7 +63,7 @@ gulp.task('webserver', ['copy-scripts'], function() {
 
 gulp.task('casper-test', ['webserver'], function(){
 	return gulp.src('tests/casper*.js')
-		.pipe(casperjs({command:''}));
+		.pipe(casperjs());
 });
 
 gulp.task('casper', ['casper-test'], function(){
