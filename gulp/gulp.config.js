@@ -10,11 +10,11 @@ module.exports = function() {
 		}, 
 		e2e: {
 			source: './tests/e2e',
-			servedir: './tmp/src/',
+			servedir: './tmp/src',
 			servecfg: {
 				port: 3000
 				// livereload: true,
-				,directoryListing: true
+				// ,directoryListing: true
 				// ,open: true				
 			}
 		}
