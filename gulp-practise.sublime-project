@@ -8,24 +8,14 @@
 		}, 
 
 		{
-			"path": "app",
-			// "file_include_patterns": ["*.js"],
+			"path": "gulp"
+		},
+		{
+			"path": "src"
 		},
 
-		// {
-		// 	"path": "scripts",
-		// 	"file_include_patterns": ["*.js", "*.coffee"],
-		// },
-
 		{
-			"path": "tests/",
-			"name": "tests",
-			"file_include_patterns": [
-				"*.coffee",
-				"*.js",
-				// "*fixture*",
-				// "*.disabled"
-			]
+			"path": "tests"
 		},
 	]
 }
