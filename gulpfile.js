@@ -79,6 +79,7 @@ gulp.task('mocha-test', function() {
 });
 
 
+// https://github.com/sun-zheng-an/gulp-shell/issues/55
 gulp.task('mocha-casperjs', function(cb) {
   var flags = [
   	'tests/mocha-casper-sample.js'
