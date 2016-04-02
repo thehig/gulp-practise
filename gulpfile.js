@@ -7,6 +7,7 @@ var coffee = require('gulp-coffee'); // Coffee compiler
 var del = require('del'); // File deleter
 var webserver = require('gulp-webserver');
 var casperjs = require('gulp-casperjs');
+var spawn = require('child_process').spawn;
 
 
 // Delete the public folder before we start
@@ -54,20 +55,36 @@ gulp.task('webserver', ['copy-scripts'], function() {
 	server = gulp.src('./public/app/')
 		.pipe(webserver({
 			port: 3000
-			// livereload: true,
-			// directoryListing: true,
-			// open: true
+				// livereload: true,
+				// directoryListing: true,
+				// open: true
 		}));
 	return server;
 });
 
-gulp.task('casper-test', ['webserver'], function(){
+gulp.task('casper-test', ['webserver'], function() {
 	return gulp.src('tests/casper*.js')
 		.pipe(casperjs());
 });
 
-gulp.task('casper', ['casper-test'], function(){
+gulp.task('casper', ['casper-test'], function() {
 	server.emit('kill');
+});
+
+
+gulp.task('mocha-test', function() {
+	console.log("Mocha-test");
+	return gulp.src('tests/mocha-casper-googling.js')
+		.pipe(mochacasperjs());
+});
+
+
+gulp.task('mocha-casperjs', function(cb) {
+  var flags = [
+  	'tests/mocha-casper-sample.js'
+  ];
+  var cmd = spawn('mocha-casperjs', flags, {stdio: 'inherit'});
+  return cmd.on('close', cb);
 });
 
 
