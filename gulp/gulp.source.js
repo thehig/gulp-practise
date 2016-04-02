@@ -1,11 +1,6 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var jshint = require('gulp-jshint'); // Syntax hilighting
-var del = require('del'); // File deleter
-
-
 var config = require('./gulp.config.js')();
-
 
 // Source will go from
 //   src - Original format with whatever accelerators
@@ -32,35 +27,9 @@ var config = require('./gulp.config.js')();
 // 		minify
 // 		copy /dst/app.version.min.js
 
-gulp.task('source', ['source-clean-temp', 'source-copy'], function() {
-	// return gulp.src(config.base.temp + '/src')
-	// 	.pipe(gulp.dest(config.base.distro + '/src'));
-});
+gulp.task('source', ['source-copy']);
 
-
-gulp.task('source-clean-temp', function() {
-	var tempSourceFiles = [
-		config.base.temp + "/src"
-	]
-
-	return del(tempSourceFiles).then(function(paths) {
-		gutil.log('\tdeleted ', paths.join(', '));
-	});
-});
-
-
-gulp.task('source-jshint', function() {
-	var basicJsFiles = [
-		config.base.source + '/**/*.js'
-	];
-
-	return gulp.src(basicJsFiles)
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'));
-});
-
-
-gulp.task('source-copy', ['source-jshint'], function() {
+gulp.task('source-copy', ['source-jshint', 'source-clean-temp'], function() {
 	var basicSourceFiles = [
 		config.base.source + '/**/*.js',
 		config.base.source + '/**/*.css',
@@ -70,3 +39,27 @@ gulp.task('source-copy', ['source-jshint'], function() {
 	return gulp.src(basicSourceFiles)
 		.pipe(gulp.dest(config.base.temp + '/src/'));
 });
+
+gulp.task('source-clean-temp', function() {
+	var tempSourceFiles = [
+		config.base.temp + "/src"
+	];
+
+	return require('del')(tempSourceFiles).then(function(paths) {
+		if(paths && paths.length)
+			gutil.log('\tdeleted ', paths.join(', '));
+	});
+});
+
+gulp.task('source-jshint', function() {
+	var basicJsFiles = [
+		config.base.source + '/**/*.js'
+	];
+
+	var jshint = require('gulp-jshint');
+
+	return gulp.src(basicJsFiles)
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'));
+});
+
