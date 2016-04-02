@@ -32,17 +32,20 @@ var config = require('./gulp.config.js')();
 // 		minify
 // 		copy /dst/app.version.min.js
 
-gulp.task('source', ['source-clean-temp', 'source-copy']);
+gulp.task('source', ['source-clean-temp', 'source-copy'], function() {
+	// return gulp.src(config.base.temp + '/src')
+	// 	.pipe(gulp.dest(config.base.distro + '/src'));
+});
 
 
 gulp.task('source-clean-temp', function() {
-  var tempSourceFiles = [
-    config.base.temp + "/src"
-  ]
+	var tempSourceFiles = [
+		config.base.temp + "/src"
+	]
 
-  return del(tempSourceFiles).then(function(paths) {
-    gutil.log('\tdeleted ', paths.join(', '));
-  });
+	return del(tempSourceFiles).then(function(paths) {
+		gutil.log('\tdeleted ', paths.join(', '));
+	});
 });
 
 
