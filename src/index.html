@@ -5,12 +5,20 @@
 <body>
 	<div class="target"></div>
 	
+	<input type='text' class='inbox'>
+	<button class='action-submit'>Go</button>
+	
 	<script src="js/app.js"></script>
 	<script type="text/javascript">
-		console.log("Loaded");
-		var target = document.querySelector('.target');
 
-		target.innerText = app.foo('Ben');
+		var target = document.querySelector('.target');
+		var inbox = document.querySelector('.inbox');
+		var button = document.querySelector('.action-submit');
+
+		button.addEventListener('click', function(){
+			target.innerText = app.foo(inbox.value);
+		});
+		
 	</script>
 
 </body>
