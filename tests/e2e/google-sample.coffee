@@ -11,3 +11,4 @@ describe 'Google searching (using casper-chai)', ->
       @fill 'form[action="/search"]', { q: 'casperjs' }, true
     casper.waitForUrl /q=casperjs/, ->
       /casperjs/.should.matchTitle
+      casper.capture('./snapshots/google.png')

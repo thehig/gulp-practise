@@ -12,14 +12,18 @@ describe 'my page (using chai expect)', ->
     casper.then -> expect('CasperJS Test').to.matchTitle
 
   it 'has the target, inbox and button on screen', ->
-  	casper.then ->
-  		'.target'.should.be.inDOM.and.not.be.visible
-  		'.inbox'.should.be.inDOM.and.be.visible
-  		'.action-submit'.should.be.inDOM.and.be.visible
+    casper.then ->
+      casper.capture './snapshots/my-page-1.png'
+      '.target'.should.be.inDOM.and.not.be.visible
+      '.inbox'.should.be.inDOM.and.be.visible
+      '.action-submit'.should.be.inDOM.and.be.visible
 
   it "has the output 'Hello casperjs' after input and button click", ->
-  	casper.then -> 
-  		casper.sendKeys '.inbox', 'casperjs'
-  		'.inbox'.should.have.text 'casperjs'
-  		casper.click '.action-submit'
-  		'.target'.should.have.text 'Hello casperjs'
+    casper.then -> 
+      casper.sendKeys '.inbox', 'casperjs'
+      '.inbox'.should.have.text 'casperjs'
+      casper.capture './snapshots/my-page-2.png'
+      casper.click '.action-submit'
+      '.target'.should.have.text 'Hello casperjs'
+      casper.capture './snapshots/my-page-3.png'
+
