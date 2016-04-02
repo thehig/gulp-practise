@@ -45,12 +45,8 @@ gulp.task('e2e-mocha', ['e2e-serve'], function(cb) {
 	var spawn = require('child_process').spawn;
 
 	var cmd = spawn('mocha-casperjs', flags, {
-		stdio: 'pipe'
+		stdio: 'inherit'
 	});
 
-	cmd.stdout.on('data', function(data) {
-        var msg = data.toString().replace(/(\r\n|\n|\r)/gm,"");
-        gutil.log('e2e-mocha:', msg);
-    });
 	return cmd.on('close', cb);
 });
