@@ -10,7 +10,7 @@ var webserver = require('gulp-webserver');
 var spawn = require('child_process').spawn;
 var server = undefined;
 
-gulp.task('e2e', ['e2e-serve', 'e2e-coffee'], function() {
+gulp.task('e2e', ['e2e-mocha'], function() {
 	server.emit('kill');
 });
 
@@ -36,7 +36,7 @@ gulp.task('e2e-coffee', ['e2e-clean-temp'], function() {
 		.pipe(gulp.dest(config.base.temp + '/e2e'));
 });
 
-gulp.task('e2e-serve', ['source'], function() {
+gulp.task('e2e-serve', ['source', 'e2e-coffee'], function() {
 	server = gulp.src(config.e2e.servedir)
 		.pipe(webserver(config.e2e.servecfg));
 	return server;
