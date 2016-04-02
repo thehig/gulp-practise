@@ -22,6 +22,7 @@
     "gulp-jshint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-task-listing": "^1.0.1",
     "gulp-util": "^3.0.7",
     "gulp-webserver": "^0.9.1",
     "jshint": "^2.9.1",
