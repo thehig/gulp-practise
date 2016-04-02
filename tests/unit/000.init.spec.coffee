@@ -1,4 +1,4 @@
-app = require('../app/app.js')
+app = require('../src/js/app.js')
 expect = require('chai').expect
 
 describe "000.Init", ->

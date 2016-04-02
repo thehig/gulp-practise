@@ -4,6 +4,10 @@ module.exports = function() {
 			source: './src'
 			,temp: './tmp'
 			,distro: './dst'
+			,maps: './dst/maps'
+		}, 
+		unit: {
+			source: './tests/unit'
 		}
 	}
 	// console.log("Exporting config");	

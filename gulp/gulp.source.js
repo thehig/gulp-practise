@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var jshint = require('gulp-jshint'); // Syntax hilighting
+var del = require('del'); // File deleter
 
 
 var config = require('./gulp.config.js')();
@@ -31,12 +32,38 @@ var config = require('./gulp.config.js')();
 // 		minify
 // 		copy /dst/app.version.min.js
 
+gulp.task('source', ['source-clean-temp', 'source-copy']);
 
-gulp.task('jshint', function() {
+
+gulp.task('source-clean-temp', function() {
+  var tempSourceFiles = [
+    config.base.temp + "/src"
+  ]
+
+  return del(tempSourceFiles).then(function(paths) {
+    gutil.log('\tdeleted ', paths.join(', '));
+  });
+});
+
+
+gulp.task('source-jshint', function() {
 	var basicJsFiles = [
-		config.base.source
+		config.base.source + '/**/*.js'
 	];
-	return gulp.src(config.base.source + '/**/*.js')
+
+	return gulp.src(basicJsFiles)
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'));
+});
+
+
+gulp.task('source-copy', ['source-jshint'], function() {
+	var basicSourceFiles = [
+		config.base.source + '/**/*.js',
+		config.base.source + '/**/*.css',
+		config.base.source + '/**/*.html'
+	];
+
+	return gulp.src(basicSourceFiles)
+		.pipe(gulp.dest(config.base.temp + '/src/'));
 });
