@@ -18,19 +18,28 @@ casper.test.begin("Basic DOM Tests", 4, function (test) {
 	var dropdownsOptionCount = document.querySelectorAll(".combobox combo-option").length;
 	test.assertEquals(dropdownsOptionCount, 8);
 
+	// The first dropdown should have the required attribute
+	test.assertQEquals(dropdownsCount[0].hasAttribte("required"), true);
+	// the second dropdown should not have the required attribute
+	test.assertQEquals(dropdownsCount[1].hasAttribte("required"), false);
+
 	// Radio Button Tests
 	// =========================================
 
 	// Count the radio buttons
-	var dropdownOptionCount = document.querySelectorAll(".btn-radio").length;
-	test.assertEquals(dropdownOptionCount, 3);
+	var radioButtonCount = document.querySelectorAll(".btn-radio").length;
+	test.assertEquals(radioButtonCount, 3);
+	// Check the "checked" attribute for the 3rd radio button
+	test.assertEquals(radioButtonCount[2].hasAttribte("checked"), true);
 
 	// Text Box Tests
 	// =========================================
 
 	// Count the Text boxes
-	var dropdownOptionCount = document.querySelectorAll(".textbox").length;
-	test.assertEquals(dropdownOptionCount, 2);
+	var textboxCount = document.querySelectorAll(".textbox").length;
+	test.assertEquals(textboxCount, 2);
+	// Check the "required" attribute for the 1st textbox
+	test.assertEquals(textboxCount[0].hasAttribte("required"), true);
 
 });
 casper.run();
