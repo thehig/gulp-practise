@@ -1,6 +1,6 @@
 var casper = require('casper').create();
 
-casper.start('./app/formtest.html', function() {
+casper.start('http://localhost:8000', function() {
     this.echo(this.getTitle());
 });
 casper.test.begin("Basic DOM Tests", 4, function (test) {
@@ -11,35 +11,67 @@ casper.test.begin("Basic DOM Tests", 4, function (test) {
 	// Dropdown Tests
 	// =========================================
 	// Count the different dropdowns
-	var dropdownsCount = document.querySelectorAll(".combobox").length;
-	test.assertEquals(dropdownsCount, 2);
+	var dropdowns = document.querySelectorAll(".combobox");
+	test.assertEquals(dropdowns.length, 2);
 
 	// Count the different dropdowns options
-	var dropdownsOptionCount = document.querySelectorAll(".combobox combo-option").length;
-	test.assertEquals(dropdownsOptionCount, 8);
+	var dropdownsOption = document.querySelectorAll(".combobox combo-option");
+	test.assertEquals(dropdownsOption.length, 8);
 
 	// The first dropdown should have the required attribute
-	test.assertQEquals(dropdownsCount[0].hasAttribte("required"), true);
+	test.assertQEquals(dropdowns[0].hasAttribte("required"), true);
 	// the second dropdown should not have the required attribute
-	test.assertQEquals(dropdownsCount[1].hasAttribte("required"), false);
+	test.assertQEquals(dropdowns[1].hasAttribte("required"), false);
 
 	// Radio Button Tests
 	// =========================================
 
 	// Count the radio buttons
-	var radioButtonCount = document.querySelectorAll(".btn-radio").length;
-	test.assertEquals(radioButtonCount, 3);
+	var radioButton = document.querySelectorAll(".btn-radio");
+	test.assertEquals(radioButton.length, 3);
 	// Check the "checked" attribute for the 3rd radio button
-	test.assertEquals(radioButtonCount[2].hasAttribte("checked"), true);
+	test.assertEquals(radioButton[2].hasAttribte("checked"), true);
 
 	// Text Box Tests
 	// =========================================
 
 	// Count the Text boxes
-	var textboxCount = document.querySelectorAll(".textbox").length;
-	test.assertEquals(textboxCount, 2);
+	var textbox = document.querySelectorAll(".textbox");
+	test.assertEquals(textbox.length, 2);
 	// Check the "required" attribute for the 1st textbox
-	test.assertEquals(textboxCount[0].hasAttribte("required"), true);
+	test.assertEquals(textbox[0].hasAttribte("required"), true);
+
+
+	// Click through tests
+	//  ========================================
+	this.click(.combobox[0])
+
 
 });
+
+
+// "User" actions
+// =========================================
+casper.then(function(){
+	// Make a selection on the first dropdown
+	this.click(dropdowns[0]);
+	this.click(dropdownsOption[2]);
+
+	// Make a selection on the first dropdown
+	this.click(dropdowns[1]);
+	this.click(dropdownsOption[3]);
+
+	// Make a selection on the second radio button
+	this.click(radioButton[1]);
+
+	// Fill out the two textboxes
+	this.sendKeys(textbox[0], 'some value');
+	this.sendKeys(textbox[1], 'some other value');
+
+	// Click the submit button
+	this.click('btn-submit');
+
+
+});
+
 casper.run();
