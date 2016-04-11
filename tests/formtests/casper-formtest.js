@@ -1,9 +1,52 @@
-casper.test.begin('Basic DOM Tests', 1, function suite(test) {
+casper.test.begin('Basic DOM Tests', 5, function suite(test) {
 
 	casper.start("http://localhost:8080/formtest.html", function() {
 		// Test Against the page title
 		var pagetitle = this.getTitle();
 		test.assertEquals(pagetitle, "Hardcoded Form")
+
+		
+
+		// 	// Dropdown Tests
+		// =========================================
+		// Count the different dropdowns
+		test.assertEval(function() {
+			return __utils__.findAll(".combobox").length == 2;
+        }, "There should be two dropdowns");
+
+
+
+		
+
+		// Count the different dropdowns options
+		test.assertEval(function() {
+			return __utils__.findAll(".combo-option").length == 10;
+        }, "There should be 8 dropdowns options in total");
+
+		// // The first dropdown should have the required attribute
+		// test.assertQEquals(dropdowns[0].hasAttribte("required"), true);
+		// // the second dropdown should not have the required attribute
+		// test.assertQEquals(dropdowns[1].hasAttribte("required"), false);
+
+		// // Radio Button Tests
+		// // =========================================
+
+		// // Count the radio buttons
+		test.assertEval(function() {
+			return __utils__.findAll(".btn-radio").length == 3;
+        }, "There should be 3 radio buttons");
+		// // Check the "checked" attribute for the 3rd radio button
+		// test.assertEquals(radioButton[2].hasAttribte("checked"), true);
+
+		// // Text Box Tests
+		// // =========================================
+
+		// // Count the Text boxes
+		test.assertEval(function() {
+			return __utils__.findAll(".textbox").length == 2;
+        }, "There should be 2 text boxes");
+		// // Check the "required" attribute for the 1st textbox
+		// test.assertEquals(textbox[0].hasAttribte("required"), true);
 	});
 
 	// End of tests
@@ -12,9 +55,7 @@ casper.test.begin('Basic DOM Tests', 1, function suite(test) {
     });
 });
 // casper.test.begin("Basic DOM Tests", 4, function (test) {
-// 	// Test Against the page title
-// 	var pagetitle = this.getTitle();
-// 	test.assertEquals(pagetitle, "Hardcoded Form")
+
 
 // 	// Dropdown Tests
 // 	// =========================================
